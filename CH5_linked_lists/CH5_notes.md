@@ -32,7 +32,10 @@
 -what if the `data` pointer is actually a field of pointers, each pointing to a struct, for which appropriate memory was malloced?; remember : for every malloc you need a free, no matter how deep it goes
 
 -approach outlined in the book is a bit more generic, and is the exact same thing this guy on StackOverflow also wondered about : https://stackoverflow.com/questions/67346917/freeing-data-in-a-linked-list  
-
-
   
-
+-however, what if freeing of this data wasn't done in `list_destroy()`, but instead in `list_rem_next()`?  
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-of course this would mean that function signature need to change : `list_rem_next()` would now need to have the function pointer as argument - this function pointer represents the specific data removal function; `list_init()` would lose this argument because author's implementation passes the function for data destruction during init phase, and this function then gets set to `destroy` element in `List` structure  
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+    `void_list_init(List *list)` --> `void (*destroy)(void *data)` is removed because we don't want to pass function pointer to `list_init()`  
+    `list_rem_next(List *list, ListElmt *element, void (*destroy)(void *data))` --> `void *data` argument gets removed because we no longer have to pass a pointer to this function to get back the data, to be able to remove the `free()` the data properly  
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-`void (*destroy)(void *data)`function pointer now becomes argument for `list_rem_next()` because `list_rem_next()` removes the node from the list, and frees the data in node properly
