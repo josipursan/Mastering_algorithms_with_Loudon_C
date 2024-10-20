@@ -20,4 +20,9 @@ Do not misunderstand what is written : we have key-value pairs, and the key gets
 -**open-addressed hash tables** - hash tables that do NOT use buckets to avoid collisions  
 &nbsp;&nbsp;&nbsp;-often times linear probing can be used, especially if we are not dealing with a lot of elements  
 
-TO DO : 8.1 Description of Chained Hash Tables
+-**load factor** - value indicating the maximum number of elements we can expect to encounter in a bucket (assuming uniform hashing)  
+&nbsp;&nbsp;&nbsp;-load factor is defined as $\alpha$ = $\frac {n}{m}$  
+&nbsp;&nbsp;&nbsp;-`n` represents the number of elements in the table  
+&nbsp;&nbsp;&nbsp;-`m` represents the number of positions into which elements may be hashed  
+  
+TO DO : 8.1.2.1 Division method
